@@ -46,7 +46,7 @@ const modal = document.getElementById('car-modal'),
       modalClose = document.getElementById('modal-close'),
       modelsCards = document.querySelectorAll('.models__card')
 
-// Car data
+// Car data dengan informasi lebih detail
 const carData = {
     silver: {
         title: "Silver Aventador",
@@ -56,7 +56,7 @@ const carData = {
         speed: "355 km/h",
         acceleration: "2.8s",
         engine: "V12 Naturally Aspirated",
-        description: "The Silver Aventador combines elegance with raw power. Its sophisticated metallic finish reflects the precision engineering that makes this supercar a true masterpiece of automotive excellence."
+        description: "The Silver Aventador showcases ultimate elegance and power. With its aerodynamic design and cutting-edge technology, it represents the pinnacle of automotive engineering. The reflective silver finish captures the light perfectly, highlighting the car's aggressive lines and sophisticated contours."
     },
     yellow: {
         title: "Yellow Aventador",
@@ -66,7 +66,7 @@ const carData = {
         speed: "355 km/h",
         acceleration: "2.9s",
         engine: "V12 Naturally Aspirated",
-        description: "The Yellow Aventador embodies the spirit of racing heritage. Its vibrant color commands attention while delivering uncompromising performance that defines the Lamborghini legacy."
+        description: "The Yellow Aventador embodies pure excitement and racing heritage. This vibrant masterpiece commands attention wherever it goes, with a color that reflects the car's exhilarating performance capabilities. The striking yellow finish is matched only by the adrenaline-pumping experience of driving this exceptional supercar."
     },
     blue: {
         title: "Blue Aventador",
@@ -76,11 +76,11 @@ const carData = {
         speed: "355 km/h",
         acceleration: "2.8s",
         engine: "V12 Naturally Aspirated",
-        description: "The Blue Aventador represents the perfect fusion of luxury and performance. Its deep blue finish captures the essence of sophistication while maintaining the aggressive character of a true supercar."
+        description: "The Blue Aventador combines sophistication with raw power. Its deep blue finish gives this supercar a mysterious allure while maintaining the aggressive character that defines Lamborghini. The color perfectly complements the sharp angles and bold design, making this Aventador a standout presence on any road."
     }
 }
 
-// Show modal function
+// Show modal function with animation
 const showModal = (carType) => {
     const car = carData[carType]
     
@@ -95,12 +95,76 @@ const showModal = (carType) => {
     
     modal.classList.add('show-modal')
     document.body.style.overflow = 'hidden'
+    
+    // Animasi untuk gambar
+    const modalImg = document.getElementById('modal-img')
+    modalImg.style.opacity = '0'
+    modalImg.style.transform = 'perspective(800px) rotateY(30deg)'
+    
+    // Animasi untuk info side
+    const infoSide = document.querySelector('.modal__info-side')
+    infoSide.style.opacity = '0'
+    infoSide.style.transform = 'translateX(20px)'
+    
+    // Execute animations with delay
+    setTimeout(() => {
+        modalImg.style.transition = 'all 0.8s cubic-bezier(0.17, 0.67, 0.83, 0.67)'
+        modalImg.style.opacity = '1'
+        modalImg.style.transform = 'perspective(800px) rotateY(5deg)'
+    }, 300)
+    
+    setTimeout(() => {
+        infoSide.style.transition = 'all 0.5s ease'
+        infoSide.style.opacity = '1'
+        infoSide.style.transform = 'translateX(0)'
+    }, 500)
+    
+    // Add entrance animation for specs
+    const specs = document.querySelectorAll('.modal__spec')
+    specs.forEach((spec, index) => {
+        spec.style.opacity = '0'
+        spec.style.transform = 'translateY(20px)'
+        setTimeout(() => {
+            spec.style.transition = 'all 0.4s ease'
+            spec.style.opacity = '1'
+            spec.style.transform = 'translateY(0)'
+        }, 700 + (index * 100))
+    })
 }
 
-// Hide modal function
+// Hide modal function with exit animation
 const hideModal = () => {
-    modal.classList.remove('show-modal')
-    document.body.style.overflow = 'auto'
+    const modalContent = document.querySelector('.modal__content')
+    const modalImg = document.getElementById('modal-img')
+    const infoSide = document.querySelector('.modal__info-side')
+    
+    modalImg.style.opacity = '0'
+    modalImg.style.transform = 'perspective(800px) rotateY(30deg)'
+    
+    infoSide.style.opacity = '0'
+    infoSide.style.transform = 'translateX(20px)'
+    
+    setTimeout(() => {
+        modalContent.style.transform = 'scale(0.9)'
+        modalContent.style.opacity = '0'
+        
+        setTimeout(() => {
+            modal.classList.remove('show-modal')
+            document.body.style.overflow = 'auto'
+            
+            // Reset styles after modal is hidden
+            setTimeout(() => {
+                modalContent.style.transform = ''
+                modalContent.style.opacity = ''
+                modalImg.style.transition = ''
+                modalImg.style.transform = ''
+                modalImg.style.opacity = ''
+                infoSide.style.transition = ''
+                infoSide.style.transform = ''
+                infoSide.style.opacity = ''
+            }, 300)
+        }, 200)
+    }, 100)
 }
 
 // Event listeners
