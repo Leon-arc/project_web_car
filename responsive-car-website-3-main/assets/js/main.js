@@ -22,7 +22,6 @@ const navLink = document.querySelectorAll('.nav__link')
 
 const linkAction = () =>{
     const navMenu = document.getElementById('nav-menu')
-    // When we click on each nav__link, we remove the show-menu class
     navMenu.classList.remove('show-menu')
 }
 navLink.forEach(n => n.addEventListener('click', linkAction))
@@ -42,10 +41,94 @@ const swiperHome = new Swiper('.home__swiper', {
     }
 });
 
+/*=============== CAR MODAL ===============*/
+const modal = document.getElementById('car-modal'),
+      modalClose = document.getElementById('modal-close'),
+      modelsCards = document.querySelectorAll('.models__card')
+
+// Car data
+const carData = {
+    silver: {
+        title: "Silver Aventador",
+        subtitle: "LP 780-4 ULTIMAE",
+        image: "assets/img/model-car-1.png",
+        power: "780 CV (574 kW)",
+        speed: "355 km/h",
+        acceleration: "2.8s",
+        engine: "V12 Naturally Aspirated",
+        description: "The Silver Aventador combines elegance with raw power. Its sophisticated metallic finish reflects the precision engineering that makes this supercar a true masterpiece of automotive excellence."
+    },
+    yellow: {
+        title: "Yellow Aventador",
+        subtitle: "LP 780-4 ULTIMAE",
+        image: "assets/img/model-car-2.png",
+        power: "780 CV (574 kW)",
+        speed: "355 km/h",
+        acceleration: "2.9s",
+        engine: "V12 Naturally Aspirated",
+        description: "The Yellow Aventador embodies the spirit of racing heritage. Its vibrant color commands attention while delivering uncompromising performance that defines the Lamborghini legacy."
+    },
+    blue: {
+        title: "Blue Aventador",
+        subtitle: "LP 780-4 ULTIMAE",
+        image: "assets/img/model-car-3.png",
+        power: "780 CV (574 kW)",
+        speed: "355 km/h",
+        acceleration: "2.8s",
+        engine: "V12 Naturally Aspirated",
+        description: "The Blue Aventador represents the perfect fusion of luxury and performance. Its deep blue finish captures the essence of sophistication while maintaining the aggressive character of a true supercar."
+    }
+}
+
+// Show modal function
+const showModal = (carType) => {
+    const car = carData[carType]
+    
+    document.getElementById('modal-img').src = car.image
+    document.getElementById('modal-title').textContent = car.title
+    document.getElementById('modal-subtitle').textContent = car.subtitle
+    document.getElementById('modal-power').textContent = car.power
+    document.getElementById('modal-speed').textContent = car.speed
+    document.getElementById('modal-acceleration').textContent = car.acceleration
+    document.getElementById('modal-engine').textContent = car.engine
+    document.getElementById('modal-description').textContent = car.description
+    
+    modal.classList.add('show-modal')
+    document.body.style.overflow = 'hidden'
+}
+
+// Hide modal function
+const hideModal = () => {
+    modal.classList.remove('show-modal')
+    document.body.style.overflow = 'auto'
+}
+
+// Event listeners
+modelsCards.forEach(card => {
+    card.addEventListener('click', () => {
+        const carType = card.getAttribute('data-model')
+        showModal(carType)
+    })
+})
+
+modalClose.addEventListener('click', hideModal)
+
+modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+        hideModal()
+    }
+})
+
+// Close modal with Escape key
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('show-modal')) {
+        hideModal()
+    }
+})
+
 /*=============== CHANGE BACKGROUND HEADER ===============*/
 const bgHeader = () =>{
     const header = document.getElementById('header')
-    // Add a class if the bottom offset is greater than 50 of the viewport
     this.scrollY >= 50 ? header.classList.add('bg-header') 
                        : header.classList.remove('bg-header')
 }
@@ -53,10 +136,9 @@ window.addEventListener('scroll', bgHeader)
 
 /*=============== SHOW SCROLL UP ===============*/ 
 const scrollUp = () =>{
-	const scrollUp = document.getElementById('scroll-up')
-    // When the scroll is higher than 350 viewport height, add the show-scroll class to the a tag with the scrollup class
-	this.scrollY >= 350 ? scrollUp.classList.add('show-scroll')
-						: scrollUp.classList.remove('show-scroll')
+    const scrollUp = document.getElementById('scroll-up')
+    this.scrollY >= 350 ? scrollUp.classList.add('show-scroll')
+                        : scrollUp.classList.remove('show-scroll')
 }
 window.addEventListener('scroll', scrollUp)
 
@@ -64,20 +146,20 @@ window.addEventListener('scroll', scrollUp)
 const sections = document.querySelectorAll('section[id]')
     
 const scrollActive = () =>{
-  	const scrollDown = window.scrollY
+      const scrollDown = window.scrollY
 
-	sections.forEach(current =>{
-		const sectionHeight = current.offsetHeight,
-			  sectionTop = current.offsetTop - 58,
-			  sectionId = current.getAttribute('id'),
-			  sectionsClass = document.querySelector('.nav__menu a[href*=' + sectionId + ']')
+    sections.forEach(current =>{
+        const sectionHeight = current.offsetHeight,
+              sectionTop = current.offsetTop - 58,
+              sectionId = current.getAttribute('id'),
+              sectionsClass = document.querySelector('.nav__menu a[href*=' + sectionId + ']')
 
-		if(scrollDown > sectionTop && scrollDown <= sectionTop + sectionHeight){
-			sectionsClass.classList.add('active-link')
-		}else{
-			sectionsClass.classList.remove('active-link')
-		}                                                    
-	})
+        if(scrollDown > sectionTop && scrollDown <= sectionTop + sectionHeight){
+            sectionsClass.classList.add('active-link')
+        }else{
+            sectionsClass.classList.remove('active-link')
+        }                                                    
+    })
 }
 window.addEventListener('scroll', scrollActive)
 
@@ -87,7 +169,6 @@ const sr = ScrollReveal({
     distance: '60px',
     duration: 2000,
     delay: 300,
-    // reset: true, // Animation repeat
 })
 
 sr.reveal(`.home__bg`, {scale: 1.1, opacity: 1})
@@ -99,7 +180,6 @@ sr.reveal(`.about__data, contact__content`, {origin: 'left'})
 sr.reveal(`.about__video, contact__img`, {origin: 'right'})
 sr.reveal(`.models__card`, {interval: 100})
 sr.reveal(`.info__img`, {distance: '120px'})
-sr.reveal(`.info__number`, {origin: 'bottom', distance: '80px', delay: 800})
 sr.reveal(`.info__number`, {origin: 'bottom', distance: '80px', delay: 800})
 sr.reveal(`.info__group`, {interval: 100, delay: 1300})
 sr.reveal(`.footer__container`)

@@ -436,6 +436,13 @@ video {
   position: relative;
   transform: skew(-12deg);
   box-shadow: var(--shadow-img);
+  cursor: pointer;
+  transition: transform .4s, box-shadow .4s;
+}
+
+.models__card:hover {
+  transform: skew(-12deg) scale(1.05);
+  box-shadow: -12px 12px 24px hsla(0, 0%, 0%, .3);
 }
 
 .models__gradient{
@@ -478,6 +485,224 @@ video {
 .models__card:hover :is(.models__name, .models__info){
   transform: translateX(0);
   opacity: 1;
+}
+
+/*=============== MODAL ===============*/
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: hsla(0, 0%, 0%, .7);
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .4s, visibility .4s;
+}
+
+.modal.show-modal {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal__content {
+  background-color: var(--body-color);
+  border-radius: 1rem;
+  width: 90%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  transform: scale(.8);
+  transition: transform .4s;
+  box-shadow: 0 20px 40px hsla(0, 0%, 0%, .2);
+}
+
+.modal.show-modal .modal__content {
+  transform: scale(1);
+}
+
+.modal__close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background-color: var(--first-color);
+  color: var(--black-color);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 1.5rem;
+  cursor: pointer;
+  z-index: 10;
+  transition: background-color .4s;
+}
+
+.modal__close:hover {
+  background-color: var(--first-color-alt);
+}
+
+.modal__header {
+  position: relative;
+  padding: 2rem 2rem 1rem;
+  background: linear-gradient(135deg, 
+              var(--body-second-color) 0%, 
+              hsl(25, 70%, 45%) 100%);
+  border-radius: 1rem 1rem 0 0;
+  overflow: hidden;
+}
+
+.modal__header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, transparent 30%, hsla(0, 0%, 100%, .1) 50%, transparent 70%);
+  transform: translateX(-100%);
+  animation: shine 3s infinite;
+}
+
+@keyframes shine {
+  0% { transform: translateX(-100%); }
+  50% { transform: translateX(100%); }
+  100% { transform: translateX(100%); }
+}
+
+.modal__img {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  margin: 0 auto;
+  display: block;
+  filter: drop-shadow(0 10px 20px hsla(0, 0%, 0%, .3));
+}
+
+.modal__body {
+  padding: 2rem;
+}
+
+.modal__title {
+  font-size: var(--h1-font-size);
+  font-weight: var(--font-extra-bold);
+  color: var(--black-color);
+  margin-bottom: .25rem;
+  text-align: center;
+}
+
+.modal__subtitle {
+  font-size: var(--small-font-size);
+  color: var(--text-color);
+  text-align: center;
+  margin-bottom: 2rem;
+  font-weight: var(--font-semi-bold);
+}
+
+.modal__specs {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.modal__spec {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: var(--body-second-color);
+  border-radius: .5rem;
+  color: var(--white-color);
+  transition: transform .3s;
+}
+
+.modal__spec:hover {
+  transform: translateY(-2px);
+}
+
+.modal__spec i {
+  font-size: 1.5rem;
+  color: var(--first-color);
+}
+
+.modal__spec-info h4 {
+  font-size: var(--small-font-size);
+  font-weight: var(--font-semi-bold);
+  margin-bottom: .25rem;
+}
+
+.modal__spec-info p {
+  font-size: var(--smaller-font-size);
+  opacity: .8;
+}
+
+.modal__description {
+  margin-bottom: 2rem;
+}
+
+.modal__description h4 {
+  font-size: var(--h3-font-size);
+  font-weight: var(--font-bold);
+  margin-bottom: .5rem;
+  color: var(--black-color);
+}
+
+.modal__description p {
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+.modal__buttons {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.modal__button {
+  flex: 1;
+  min-width: 150px;
+  justify-content: center;
+}
+
+/* Responsive Modal */
+@media screen and (max-width: 480px) {
+  .modal__content {
+    width: 95%;
+    margin: 1rem;
+  }
+  
+  .modal__specs {
+    grid-template-columns: 1fr;
+  }
+  
+  .modal__buttons {
+    flex-direction: column;
+  }
+  
+  .modal__button {
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .modal__content {
+    max-width: 700px;
+  }
+  
+  .modal__body {
+    padding: 3rem;
+  }
+  
+  .modal__specs {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
 
 /*=============== INFO ===============*/

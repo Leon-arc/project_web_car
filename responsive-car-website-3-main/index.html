@@ -137,7 +137,7 @@
             </h2>
 
             <div class="models__container container grid">
-               <article class="models__card">
+               <article class="models__card" data-model="silver">
                   <img src="assets/img/model-car-1.png" alt="image" class="models__img">
                   <div class="models__gradient"></div>
 
@@ -147,7 +147,7 @@
                   </div>
                </article>
                
-               <article class="models__card">
+               <article class="models__card" data-model="yellow">
                   <img src="assets/img/model-car-2.png" alt="image" class="models__img">
                   <div class="models__gradient"></div>
 
@@ -157,7 +157,7 @@
                   </div>
                </article>
 
-               <article class="models__card">
+               <article class="models__card" data-model="blue">
                   <img src="assets/img/model-car-3.png" alt="image" class="models__img">
                   <div class="models__gradient"></div>
 
@@ -168,6 +168,74 @@
                </article>
             </div>
          </section>
+
+         <!-- Car Detail Modal -->
+         <div class="modal" id="car-modal">
+            <div class="modal__content">
+               <div class="modal__close" id="modal-close">
+                  <i class="ri-close-line"></i>
+               </div>
+               
+               <div class="modal__header">
+                  <img src="" alt="" class="modal__img" id="modal-img">
+               </div>
+               
+               <div class="modal__body">
+                  <h2 class="modal__title" id="modal-title">Aventador</h2>
+                  <p class="modal__subtitle" id="modal-subtitle">LP 780-4 ULTIMAE</p>
+                  
+                  <div class="modal__specs">
+                     <div class="modal__spec">
+                        <i class="ri-flashlight-line"></i>
+                        <div class="modal__spec-info">
+                           <h4>Power</h4>
+                           <p id="modal-power">780 CV (574 kW)</p>
+                        </div>
+                     </div>
+                     
+                     <div class="modal__spec">
+                        <i class="ri-speed-line"></i>
+                        <div class="modal__spec-info">
+                           <h4>Max Speed</h4>
+                           <p id="modal-speed">355 km/h</p>
+                        </div>
+                     </div>
+                     
+                     <div class="modal__spec">
+                        <i class="ri-timer-line"></i>
+                        <div class="modal__spec-info">
+                           <h4>0-100 km/h</h4>
+                           <p id="modal-acceleration">2.8s</p>
+                        </div>
+                     </div>
+                     
+                     <div class="modal__spec">
+                        <i class="ri-car-line"></i>
+                        <div class="modal__spec-info">
+                           <h4>Engine</h4>
+                           <p id="modal-engine">V12 Naturally Aspirated</p>
+                        </div>
+                     </div>
+                  </div>
+                  
+                  <div class="modal__description">
+                     <h4>Description</h4>
+                     <p id="modal-description">
+                        The Aventador represents a new benchmark in the realm of luxury super sports cars.
+                     </p>
+                  </div>
+                  
+                  <div class="modal__buttons">
+                     <button class="button modal__button">
+                        CONFIGURE <i class="ri-arrow-right-s-line"></i>
+                     </button>
+                     <button class="button button__ghost modal__button">
+                        BROCHURE <i class="ri-download-line"></i>
+                     </button>
+                  </div>
+               </div>
+            </div>
+         </div>
 
          <!--==================== INFORMATION ====================-->
          <section class="info section" id="info">
