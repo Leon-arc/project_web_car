@@ -19,55 +19,146 @@
 </head>
 
 <body>
+   <!-- Background Elements -->
+   <div class="login__bg">
+      <div class="login__bg-overlay"></div>
+      <div class="login__particles">
+         <span></span>
+         <span></span>
+         <span></span>
+         <span></span>
+         <span></span>
+         <span></span>
+      </div>
+   </div>
+
    <div class="login__container">
       <div class="login__content">
-         <div class="login__header">
-            <img src="assets/img/favicon.png" alt="Lamborghini Logo" class="login__logo">
-            <h1 class="login__title">LAMBORGHINI</h1>
-            <p class="login__subtitle">AVENTADOR</p>
+         <!-- Glass Effect Header -->
+         <div class="login__glass-header">
+            <div class="login__header">
+               <div class="login__logo-container">
+                  <img src="assets/img/favicon.png" alt="Lamborghini Logo" class="login__logo">
+                  <div class="login__logo-glow"></div>
+               </div>
+               <h1 class="login__title">LAMBORGHINI</h1>
+               <p class="login__subtitle">AVENTADOR COLLECTION</p>
+               <div class="login__welcome-text">
+                  <span class="login__welcome-line"></span>
+                  <p>Welcome Back</p>
+                  <span class="login__welcome-line"></span>
+               </div>
+            </div>
          </div>
 
+         <!-- Enhanced Form -->
          <form class="login__form" id="login-form">
             <div class="login__message" id="login-message"></div>
             
-            <div class="login__box">
-               <label for="username" class="login__label">Username</label>
-               <div class="login__field">
-                  <i class="ri-user-line login__icon"></i>
-                  <input type="text" id="username" class="login__input" placeholder="Enter your username" required>
+            <div class="login__form-group">
+               <div class="login__box">
+                  <label for="username" class="login__label">
+                     <i class="ri-user-line"></i>
+                     Username
+                  </label>
+                  <div class="login__field">
+                     <input type="text" id="username" class="login__input" placeholder="Enter your username" required>
+                     <div class="login__field-border"></div>
+                  </div>
                </div>
-            </div>
 
-            <div class="login__box">
-               <label for="password" class="login__label">Password</label>
-               <div class="login__field">
-                  <i class="ri-lock-line login__icon"></i>
-                  <input type="password" id="password" class="login__input" placeholder="Enter your password" required>
-                  <i class="ri-eye-off-line login__toggle" id="password-toggle"></i>
+               <div class="login__box">
+                  <label for="password" class="login__label">
+                     <i class="ri-lock-line"></i>
+                     Password
+                  </label>
+                  <div class="login__field">
+                     <input type="password" id="password" class="login__input" placeholder="Enter your password" required>
+                     <i class="ri-eye-off-line login__toggle" id="password-toggle"></i>
+                     <div class="login__field-border"></div>
+                  </div>
                </div>
             </div>
 
             <div class="login__options">
                <div class="login__remember">
-                  <input type="checkbox" id="remember" class="login__check">
+                  <div class="login__checkbox-wrapper">
+                     <input type="checkbox" id="remember" class="login__check">
+                     <div class="login__checkmark">
+                        <i class="ri-check-line"></i>
+                     </div>
+                  </div>
                   <label for="remember" class="login__remember-label">Remember me</label>
                </div>
-               <a href="#" class="login__forgot">Forgot password?</a>
+               <a href="#" class="login__forgot">
+                  <i class="ri-lock-unlock-line"></i>
+                  Forgot password?
+               </a>
             </div>
 
-            <button type="submit" class="button login__button">
-               LOGIN <i class="ri-arrow-right-s-line"></i>
-            </button>
+            <div class="login__button-container">
+               <button type="submit" class="login__button">
+                  <span class="login__button-text">LOGIN</span>
+                  <div class="login__button-bg"></div>
+                  <i class="ri-arrow-right-s-line login__button-icon"></i>
+               </button>
+            </div>
+
+            <div class="login__divider">
+               <span class="login__divider-line"></span>
+               <span class="login__divider-text">OR</span>
+               <span class="login__divider-line"></span>
+            </div>
+
+            <div class="login__social">
+               <button type="button" class="login__social-btn">
+                  <i class="ri-google-fill"></i>
+                  <span>Continue with Google</span>
+               </button>
+            </div>
 
             <div class="login__register">
                <span>Don't have an account?</span>
-               <a href="#" class="login__register-link">Register</a>
+               <a href="#" class="login__register-link">
+                  <span>Create Account</span>
+                  <i class="ri-arrow-right-up-line"></i>
+               </a>
             </div>
          </form>
 
-         <div class="login__car">
-            <img src="assets/img/home-car-1.png" alt="Lamborghini Aventador" class="login__car-img">
+         <!-- Enhanced Car Display -->
+         <div class="login__car-display">
+            <div class="login__car-container">
+               <img src="assets/img/home-car-1.png" alt="Lamborghini Aventador" class="login__car-img">
+               <div class="login__car-reflection"></div>
+            </div>
+            <div class="login__car-specs">
+               <div class="login__spec">
+                  <span class="login__spec-value">780</span>
+                  <span class="login__spec-label">HP</span>
+               </div>
+               <div class="login__spec">
+                  <span class="login__spec-value">2.8</span>
+                  <span class="login__spec-label">0-60</span>
+               </div>
+               <div class="login__spec">
+                  <span class="login__spec-value">355</span>
+                  <span class="login__spec-label">KM/H</span>
+               </div>
+            </div>
          </div>
+      </div>
+   </div>
+
+   <!-- Loading Animation -->
+   <div class="login__loading" id="login-loading">
+      <div class="login__loading-content">
+         <div class="login__spinner">
+            <div class="login__spinner-ring"></div>
+            <div class="login__spinner-ring"></div>
+            <div class="login__spinner-ring"></div>
+         </div>
+         <p>Authenticating...</p>
       </div>
    </div>
 

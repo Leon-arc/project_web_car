@@ -19,49 +19,157 @@
 </head>
 
 <body>
+   <!-- Background Elements -->
+   <div class="welcome__bg">
+      <div class="welcome__bg-overlay"></div>
+      <div class="welcome__particles">
+         <span></span>
+         <span></span>
+         <span></span>
+         <span></span>
+         <span></span>
+         <span></span>
+         <span></span>
+         <span></span>
+      </div>
+   </div>
+
+   <!-- Main Container -->
    <div class="welcome__container">
       <div class="welcome__content">
-         <div class="welcome__header">
-            <img src="assets/img/favicon.png" alt="Lamborghini Logo" class="welcome__logo">
-            <h1 class="welcome__title">WELCOME</h1>
-            <p class="welcome__subtitle">TO THE WORLD OF AVENTADOR</p>
-            <h2 class="welcome__username" id="welcome-username"></h2>
+         <!-- Glass Header -->
+         <div class="welcome__glass-header">
+            <div class="welcome__header">
+               <div class="welcome__logo-container">
+                  <img src="assets/img/favicon.png" alt="Lamborghini Logo" class="welcome__logo">
+                  <div class="welcome__logo-glow"></div>
+               </div>
+               <h1 class="welcome__title">WELCOME</h1>
+               <p class="welcome__subtitle">TO THE WORLD OF AVENTADOR</p>
+               <div class="welcome__username-display">
+                  <span class="welcome__greeting-line"></span>
+                  <h2 class="welcome__username" id="welcome-username"></h2>
+                  <span class="welcome__greeting-line"></span>
+               </div>
+            </div>
          </div>
 
-         <div class="welcome__car-container">
-            <div class="welcome__car">
-               <img src="assets/img/model-car-2.png" alt="Lamborghini Aventador" class="welcome__car-img">
+         <!-- Main Content -->
+         <div class="welcome__main-content">
+            <!-- Car Showcase -->
+            <div class="welcome__car-showcase">
+               <div class="welcome__car-container">
+                  <div class="welcome__car-frame">
+                     <img src="assets/img/model-car-2.png" alt="Lamborghini Aventador" class="welcome__car-img">
+                     <div class="welcome__car-reflection"></div>
+                     <div class="welcome__car-shadow"></div>
+                  </div>
+                  
+                  <!-- Floating Stats -->
+                  <div class="welcome__floating-stats">
+                     <div class="welcome__stat" style="--delay: 0.5s">
+                        <div class="welcome__stat-icon">
+                           <i class="ri-flashlight-line"></i>
+                        </div>
+                        <div class="welcome__stat-info">
+                           <span class="welcome__stat-value">780</span>
+                           <span class="welcome__stat-label">HP</span>
+                        </div>
+                     </div>
+                     
+                     <div class="welcome__stat" style="--delay: 0.8s">
+                        <div class="welcome__stat-icon">
+                           <i class="ri-speed-line"></i>
+                        </div>
+                        <div class="welcome__stat-info">
+                           <span class="welcome__stat-value">355</span>
+                           <span class="welcome__stat-label">KM/H</span>
+                        </div>
+                     </div>
+                     
+                     <div class="welcome__stat" style="--delay: 1.1s">
+                        <div class="welcome__stat-icon">
+                           <i class="ri-timer-line"></i>
+                        </div>
+                        <div class="welcome__stat-info">
+                           <span class="welcome__stat-value">2.8</span>
+                           <span class="welcome__stat-label">0-60s</span>
+                        </div>
+                     </div>
+                  </div>
+               </div>
             </div>
-            
-            <div class="welcome__info">
-               <div class="welcome__specs">
-                  <div class="welcome__spec">
-                     <i class="ri-flashlight-line"></i>
-                     <span>780 CV</span>
+
+            <!-- Welcome Info -->
+            <div class="welcome__info-section">
+               <div class="welcome__message-card">
+                  <div class="welcome__message-icon">
+                     <i class="ri-car-line"></i>
                   </div>
-                  <div class="welcome__spec">
-                     <i class="ri-speed-line"></i>
-                     <span>355 km/h</span>
+                  <h3 class="welcome__message-title">Experience Pure Emotion</h3>
+                  <p class="welcome__message-text">
+                     Step into the world of the most iconic V12 Lamborghini ever created. 
+                     The Aventador represents the pinnacle of automotive engineering and Italian craftsmanship.
+                  </p>
+               </div>
+
+               <!-- Feature Cards -->
+               <div class="welcome__features">
+                  <div class="welcome__feature-card">
+                     <div class="welcome__feature-icon">
+                        <i class="ri-settings-3-line"></i>
+                     </div>
+                     <span>Advanced Engineering</span>
                   </div>
-                  <div class="welcome__spec">
-                     <i class="ri-timer-line"></i>
-                     <span>2.8s</span>
+                  
+                  <div class="welcome__feature-card">
+                     <div class="welcome__feature-icon">
+                        <i class="ri-speed-up-line"></i>
+                     </div>
+                     <span>Unmatched Performance</span>
+                  </div>
+                  
+                  <div class="welcome__feature-card">
+                     <div class="welcome__feature-icon">
+                        <i class="ri-star-line"></i>
+                     </div>
+                     <span>Luxury Design</span>
                   </div>
                </div>
 
-               <p class="welcome__message">
-                  Experience pure driving emotion with the most iconic V12 Lamborghini ever made.
-               </p>
-
-               <a href="index.html" class="button welcome__button">
-                  EXPLORE NOW <i class="ri-arrow-right-s-line"></i>
-               </a>
+               <!-- Action Button -->
+               <div class="welcome__action">
+                  <button class="welcome__button" onclick="window.location.href='index.html'">
+                     <span class="welcome__button-text">EXPLORE AVENTADOR</span>
+                     <div class="welcome__button-bg"></div>
+                     <i class="ri-arrow-right-s-line welcome__button-icon"></i>
+                  </button>
+               </div>
             </div>
          </div>
 
-         <div class="welcome__progress">
-            <div class="welcome__progress-bar" id="progress-bar"></div>
+         <!-- Progress Section -->
+         <div class="welcome__progress-section">
+            <div class="welcome__progress-info">
+               <span class="welcome__progress-text">Redirecting automatically</span>
+               <span class="welcome__progress-time" id="countdown-timer">5</span>
+            </div>
+            <div class="welcome__progress">
+               <div class="welcome__progress-bar" id="progress-bar"></div>
+            </div>
          </div>
+      </div>
+   </div>
+
+   <!-- Loading Overlay -->
+   <div class="welcome__loading" id="welcome-loading">
+      <div class="welcome__loading-content">
+         <div class="welcome__loading-spinner">
+            <div class="welcome__loading-ring"></div>
+            <div class="welcome__loading-ring"></div>
+            <div class="welcome__loading-ring"></div>
+         </div>
+         <p>Preparing your experience...</p>
       </div>
    </div>
 
