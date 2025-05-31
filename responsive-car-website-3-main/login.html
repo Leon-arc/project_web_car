@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+   <!--=============== FAVICON ===============-->
+   <link rel="shortcut icon" href="assets/img/favicon.png" type="image/x-icon">
+
+   <!--=============== REMIXICONS ===============-->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+
+   <!--=============== CSS ===============-->
+   <link rel="stylesheet" href="assets/css/styles.css">
+   <link rel="stylesheet" href="assets/css/auth.css">
+
+   <title>Login - Lamborghini Aventador</title>
+</head>
+
+<body>
+   <div class="login__container">
+      <div class="login__content">
+         <div class="login__header">
+            <img src="assets/img/favicon.png" alt="Lamborghini Logo" class="login__logo">
+            <h1 class="login__title">LAMBORGHINI</h1>
+            <p class="login__subtitle">AVENTADOR</p>
+         </div>
+
+         <form class="login__form" id="login-form">
+            <div class="login__message" id="login-message"></div>
+            
+            <div class="login__box">
+               <label for="username" class="login__label">Username</label>
+               <div class="login__field">
+                  <i class="ri-user-line login__icon"></i>
+                  <input type="text" id="username" class="login__input" placeholder="Enter your username" required>
+               </div>
+            </div>
+
+            <div class="login__box">
+               <label for="password" class="login__label">Password</label>
+               <div class="login__field">
+                  <i class="ri-lock-line login__icon"></i>
+                  <input type="password" id="password" class="login__input" placeholder="Enter your password" required>
+                  <i class="ri-eye-off-line login__toggle" id="password-toggle"></i>
+               </div>
+            </div>
+
+            <div class="login__options">
+               <div class="login__remember">
+                  <input type="checkbox" id="remember" class="login__check">
+                  <label for="remember" class="login__remember-label">Remember me</label>
+               </div>
+               <a href="#" class="login__forgot">Forgot password?</a>
+            </div>
+
+            <button type="submit" class="button login__button">
+               LOGIN <i class="ri-arrow-right-s-line"></i>
+            </button>
+
+            <div class="login__register">
+               <span>Don't have an account?</span>
+               <a href="#" class="login__register-link">Register</a>
+            </div>
+         </form>
+
+         <div class="login__car">
+            <img src="assets/img/home-car-1.png" alt="Lamborghini Aventador" class="login__car-img">
+         </div>
+      </div>
+   </div>
+
+   <!--=============== MAIN JS ===============-->
+   <script src="assets/js/auth.js"></script>
+</body>
+
+</html>
