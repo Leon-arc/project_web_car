@@ -62,7 +62,7 @@ const carData = {
         title: "Yellow Aventador",
         subtitle: "LP 780-4 ULTIMAE",
         image: "assets/img/model-car-2.png",
-        power: "780 CV (574 kW)",
+        power: "780 CV (6574 kW)",
         speed: "355 km/h",
         acceleration: "2.9s",
         engine: "V12 Naturally Aspirated",
@@ -80,10 +80,20 @@ const carData = {
     }
 }
 
-// Show modal function with animation
+// Enhanced show modal function with scroll support
 const showModal = (carType) => {
     const car = carData[carType]
     
+    // Show loading state
+    modal.classList.add('show-modal')
+    document.body.style.overflow = 'hidden'
+    
+    // Add loading spinner
+    const modalImageSide = document.querySelector('.modal__image-side')
+    const loadingHTML = '<div class="modal__loading"><div class="modal__loading-spinner"></div></div>'
+    modalImageSide.insertAdjacentHTML('beforeend', loadingHTML)
+    
+    // Update modal content
     document.getElementById('modal-img').src = car.image
     document.getElementById('modal-title').textContent = car.title
     document.getElementById('modal-subtitle').textContent = car.subtitle
@@ -93,59 +103,131 @@ const showModal = (carType) => {
     document.getElementById('modal-engine').textContent = car.engine
     document.getElementById('modal-description').textContent = car.description
     
-    modal.classList.add('show-modal')
-    document.body.style.overflow = 'hidden'
-    
-    // Animasi untuk gambar
+    // Remove loading spinner after image loads
     const modalImg = document.getElementById('modal-img')
-    modalImg.style.opacity = '0'
-    modalImg.style.transform = 'perspective(800px) rotateY(30deg)'
-    
-    // Animasi untuk info side
-    const infoSide = document.querySelector('.modal__info-side')
-    infoSide.style.opacity = '0'
-    infoSide.style.transform = 'translateX(20px)'
-    
-    // Execute animations with delay
-    setTimeout(() => {
-        modalImg.style.transition = 'all 0.8s cubic-bezier(0.17, 0.67, 0.83, 0.67)'
-        modalImg.style.opacity = '1'
-        modalImg.style.transform = 'perspective(800px) rotateY(5deg)'
-    }, 300)
-    
-    setTimeout(() => {
-        infoSide.style.transition = 'all 0.5s ease'
-        infoSide.style.opacity = '1'
-        infoSide.style.transform = 'translateX(0)'
-    }, 500)
-    
-    // Add entrance animation for specs
-    const specs = document.querySelectorAll('.modal__spec')
-    specs.forEach((spec, index) => {
-        spec.style.opacity = '0'
-        spec.style.transform = 'translateY(20px)'
+    modalImg.onload = () => {
+        const loading = document.querySelector('.modal__loading')
+        if (loading) {
+            loading.remove()
+        }
+        
+        // Enhanced entrance animations
+        modalImg.style.opacity = '0'
+        modalImg.style.transform = 'perspective(1000px) rotateY(30deg) rotateX(10deg) scale(0.8)'
+        
+        const infoSide = document.querySelector('.modal__info-side')
+        infoSide.style.opacity = '0'
+        infoSide.style.transform = 'translateX(50px)'
+        
+        // Reset scroll position
+        infoSide.scrollTop = 0
+        
+        // Add scroll indicator if content is scrollable
         setTimeout(() => {
-            spec.style.transition = 'all 0.4s ease'
-            spec.style.opacity = '1'
-            spec.style.transform = 'translateY(0)'
-        }, 700 + (index * 100))
-    })
+            addScrollIndicator(infoSide)
+        }, 500)
+        
+        // Animate image
+        setTimeout(() => {
+            modalImg.style.transition = 'all 1s cubic-bezier(0.17, 0.67, 0.83, 0.67)'
+            modalImg.style.opacity = '1'
+            modalImg.style.transform = 'perspective(1000px) rotateY(8deg) rotateX(2deg) scale(1)'
+        }, 200)
+        
+        // Animate info side
+        setTimeout(() => {
+            infoSide.style.transition = 'all 0.8s ease'
+            infoSide.style.opacity = '1'
+            infoSide.style.transform = 'translateX(0)'
+        }, 400)
+        
+        // Animate specs with stagger effect
+        const specs = document.querySelectorAll('.modal__spec')
+        specs.forEach((spec, index) => {
+            spec.style.opacity = '0'
+            spec.style.transform = 'translateY(30px) scale(0.9)'
+            setTimeout(() => {
+                spec.style.transition = 'all 0.6s cubic-bezier(0.17, 0.67, 0.83, 0.67)'
+                spec.style.opacity = '1'
+                spec.style.transform = 'translateY(0) scale(1)'
+            }, 600 + (index * 150))
+        })
+        
+        // Animate description
+        const description = document.querySelector('.modal__description')
+        description.style.opacity = '0'
+        description.style.transform = 'translateY(20px)'
+        setTimeout(() => {
+            description.style.transition = 'all 0.6s ease'
+            description.style.opacity = '1'
+            description.style.transform = 'translateY(0)'
+        }, 1200)
+        
+        // Animate buttons
+        const buttons = document.querySelectorAll('.modal__button')
+        buttons.forEach((button, index) => {
+            button.style.opacity = '0'
+            button.style.transform = 'translateY(20px)'
+            setTimeout(() => {
+                button.style.transition = 'all 0.5s ease'
+                button.style.opacity = '1'
+                button.style.transform = 'translateY(0)'
+            }, 1400 + (index * 100))
+        })
+    }
 }
 
-// Hide modal function with exit animation
+// Function to add scroll indicator
+function addScrollIndicator(container) {
+    // Remove existing indicator
+    const existingIndicator = container.querySelector('.modal__scroll-indicator')
+    if (existingIndicator) {
+        existingIndicator.remove()
+    }
+    
+    // Check if content is scrollable
+    if (container.scrollHeight > container.clientHeight) {
+        const indicator = document.createElement('div')
+        indicator.className = 'modal__scroll-indicator show'
+        container.appendChild(indicator)
+        
+        // Add scroll event listener
+        container.addEventListener('scroll', () => {
+            // Hide indicator when user starts scrolling
+            indicator.style.opacity = '0'
+        })
+        
+        // Auto-hide indicator after 3 seconds
+        setTimeout(() => {
+            indicator.classList.remove('show')
+            setTimeout(() => {
+                if (indicator.parentNode) {
+                    indicator.remove()
+                }
+            }, 300)
+        }, 3000)
+    }
+}
+
+// Enhanced hide modal function
 const hideModal = () => {
     const modalContent = document.querySelector('.modal__content')
     const modalImg = document.getElementById('modal-img')
     const infoSide = document.querySelector('.modal__info-side')
     
+    // Exit animations
+    modalImg.style.transition = 'all 0.5s ease'
     modalImg.style.opacity = '0'
-    modalImg.style.transform = 'perspective(800px) rotateY(30deg)'
+    modalImg.style.transform = 'perspective(1000px) rotateY(-30deg) rotateX(10deg) scale(0.8)'
     
+    infoSide.style.transition = 'all 0.4s ease'
     infoSide.style.opacity = '0'
-    infoSide.style.transform = 'translateX(20px)'
+    infoSide.style.transform = 'translateX(30px)'
     
+    // Scale down entire modal
     setTimeout(() => {
-        modalContent.style.transform = 'scale(0.9)'
+        modalContent.style.transition = 'all 0.4s cubic-bezier(0.17, 0.67, 0.83, 0.67)'
+        modalContent.style.transform = 'scale(0.9) translateY(30px)'
         modalContent.style.opacity = '0'
         
         setTimeout(() => {
@@ -162,20 +244,40 @@ const hideModal = () => {
                 infoSide.style.transition = ''
                 infoSide.style.transform = ''
                 infoSide.style.opacity = ''
+                
+                // Reset all animated elements
+                const animatedElements = document.querySelectorAll('.modal__spec, .modal__description, .modal__button')
+                animatedElements.forEach(el => {
+                    el.style.transition = ''
+                    el.style.transform = ''
+                    el.style.opacity = ''
+                })
             }, 300)
-        }, 200)
+        }, 300)
     }, 100)
 }
 
-// Event listeners
+// Add click sound effect (optional)
+const playClickSound = () => {
+    // You can add a subtle click sound here if desired
+    // const audio = new Audio('assets/sounds/click.mp3')
+    // audio.volume = 0.3
+    // audio.play()
+}
+
+// Enhanced event listeners
 modelsCards.forEach(card => {
     card.addEventListener('click', () => {
+        playClickSound()
         const carType = card.getAttribute('data-model')
         showModal(carType)
     })
 })
 
-modalClose.addEventListener('click', hideModal)
+modalClose.addEventListener('click', () => {
+    playClickSound()
+    hideModal()
+})
 
 modal.addEventListener('click', (e) => {
     if (e.target === modal) {
@@ -183,12 +285,84 @@ modal.addEventListener('click', (e) => {
     }
 })
 
-// Close modal with Escape key
+// Enhanced keyboard navigation
 document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modal.classList.contains('show-modal')) {
-        hideModal()
+    if (modal.classList.contains('show-modal')) {
+        const infoSide = document.querySelector('.modal__info-side')
+        
+        switch(e.key) {
+            case 'Escape':
+                hideModal()
+                break
+            case 'ArrowDown':
+                e.preventDefault()
+                infoSide.scrollBy({ top: 100, behavior: 'smooth' })
+                break
+            case 'ArrowUp':
+                e.preventDefault()
+                infoSide.scrollBy({ top: -100, behavior: 'smooth' })
+                break
+            case 'PageDown':
+                e.preventDefault()
+                infoSide.scrollBy({ top: infoSide.clientHeight * 0.8, behavior: 'smooth' })
+                break
+            case 'PageUp':
+                e.preventDefault()
+                infoSide.scrollBy({ top: -infoSide.clientHeight * 0.8, behavior: 'smooth' })
+                break
+            case 'Home':
+                e.preventDefault()
+                infoSide.scrollTo({ top: 0, behavior: 'smooth' })
+                break
+            case 'End':
+                e.preventDefault()
+                infoSide.scrollTo({ top: infoSide.scrollHeight, behavior: 'smooth' })
+                break
+        }
     }
 })
+
+// Smooth scroll behavior for touch devices
+function addTouchScrollSupport() {
+    const modalInfoSide = document.querySelector('.modal__info-side')
+    const loginForm = document.querySelector('.login__form')
+    const welcomeContent = document.querySelector('.welcome__main-content')
+    
+    const elements = [modalInfoSide, loginForm, welcomeContent].filter(Boolean)
+    
+    elements.forEach(element => {
+        if (element) {
+            // Add momentum scrolling for iOS
+            element.style.webkitOverflowScrolling = 'touch'
+            
+            // Add scroll event listeners
+            element.addEventListener('scroll', () => {
+                // Add scroll shadows for better UX
+                if (element.scrollTop > 0) {
+                    element.classList.add('scrolled-top')
+                } else {
+                    element.classList.remove('scrolled-top')
+                }
+                
+                if (element.scrollTop < element.scrollHeight - element.clientHeight) {
+                    element.classList.add('scrolled-bottom')
+                } else {
+                    element.classList.remove('scrolled-bottom')
+                }
+            })
+        }
+    })
+}
+
+// Initialize touch scroll support
+document.addEventListener('DOMContentLoaded', addTouchScrollSupport)
+
+// Re-add scroll support when modal opens
+const originalShowModal = showModal
+showModal = (carType) => {
+    originalShowModal(carType)
+    setTimeout(addTouchScrollSupport, 100)
+}
 
 /*=============== CHANGE BACKGROUND HEADER ===============*/
 const bgHeader = () =>{

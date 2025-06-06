@@ -18,6 +18,8 @@
    <link rel="stylesheet" href="assets/css/styles.css">
 
    <title>Responsive car website</title>
+   <link rel="preload" href="assets/js/scrollreveal.min.js" as="script">
+   <link rel="preload" href="assets/js/swiper-bundle.min.js" as="script">
 </head>
 
 <body>
@@ -380,6 +382,145 @@
    <!--=============== MAIN JS ===============-->
    <script src="assets/js/main.js"></script>
    <script src="assets/js/auth.js"></script>
+   <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Initialize animations with fallback
+    let animationsInitialized = false;
+    
+    // Function to initialize ScrollReveal animations
+    function initScrollReveal() {
+      if (typeof ScrollReveal !== 'undefined' && !animationsInitialized) {
+        const sr = ScrollReveal({
+          origin: 'top',
+          distance: '60px',
+          duration: 2000,
+          delay: 300,
+          reset: false
+        });
+        
+        // Apply all reveal animations
+        sr.reveal('.home__bg', {scale: 1.1, opacity: 1});
+        sr.reveal('.home__swiper', {origin: 'right', distance: '300px', delay: 800});
+        sr.reveal('.home__data', {origin: 'bottom', distance: '120px', delay: 1600});
+        sr.reveal('.swiper-pagination-bullet', {origin: 'top', delay: 1800, opacity: 0});
+        sr.reveal('.home__button', {origin: 'top', delay: 2200});
+        sr.reveal('.about__data', {origin: 'left'});
+        sr.reveal('.about__video', {origin: 'right'});
+        sr.reveal('.contact__content', {origin: 'left'});
+        sr.reveal('.contact__img', {origin: 'right'});
+        sr.reveal('.models__card', {interval: 100});
+        sr.reveal('.info__img', {distance: '120px'});
+        sr.reveal('.info__number', {origin: 'bottom', distance: '80px', delay: 800});
+        sr.reveal('.info__group', {interval: 100, delay: 1300});
+        sr.reveal('.footer__container');
+        
+        animationsInitialized = true;
+        console.log('ScrollReveal animations initialized successfully');
+      }
+    }
+    
+    // Try to initialize ScrollReveal immediately
+    initScrollReveal();
+    
+    // If ScrollReveal is not loaded, load from CDN
+    if (typeof ScrollReveal === 'undefined') {
+      console.log('Loading ScrollReveal from CDN...');
+      const script = document.createElement('script');
+      script.src = "https://unpkg.com/scrollreveal@4.0.9/dist/scrollreveal.min.js";
+      script.onload = function() {
+        console.log('ScrollReveal loaded from CDN');
+        setTimeout(initScrollReveal, 100);
+      };
+      script.onerror = function() {
+        console.log('Failed to load ScrollReveal, using CSS fallback animations');
+        document.body.classList.add('no-scrollreveal');
+      };
+      document.head.appendChild(script);
+    }
+    
+    // Initialize Swiper with proper fallback
+    function initSwiper() {
+      if (typeof Swiper !== 'undefined') {
+        // Destroy existing instance if any
+        if (window.swiperHome) {
+          window.swiperHome.destroy(true, true);
+        }
+        
+        // Initialize new Swiper instance
+        window.swiperHome = new Swiper('.home__swiper', {
+          pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+            renderBullet: function(index, className) {
+              return '<span class="' + className + '">' + String(index + 1).padStart(2, '0') + "</span>";
+            },
+          },
+          autoplay: {
+            delay: 5000,
+            disableOnInteraction: false,
+          },
+          loop: true,
+          effect: 'fade',
+          fadeEffect: {
+            crossFade: true
+          },
+          speed: 1000
+        });
+        
+        console.log('Swiper initialized successfully');
+      } else {
+        console.log('Swiper not found, loading from CDN...');
+        const script = document.createElement('script');
+        script.src = "https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js";
+        script.onload = function() {
+          console.log('Swiper loaded from CDN');
+          setTimeout(initSwiper, 100);
+        };
+        document.head.appendChild(script);
+      }
+    }
+    
+    // Initialize Swiper
+    setTimeout(initSwiper, 500);
+    
+    // Fix active link functionality
+    const fixActiveLink = function() {
+      const scrollDown = window.scrollY;
+      const sections = document.querySelectorAll('section[id]');
+      
+      sections.forEach(current => {
+        const sectionHeight = current.offsetHeight;
+        const sectionTop = current.offsetTop - 58;
+        const sectionId = current.getAttribute('id');
+        
+        const sectionsClass = document.querySelector(`.nav__menu a[href*="#${sectionId}"]`) ||
+                              document.querySelector(`.nav__link[href="#${sectionId}"]`) ||
+                              document.querySelector(`a[href="#${sectionId}"]`);
+        
+        if (sectionsClass) {
+          if (scrollDown > sectionTop && scrollDown <= sectionTop + sectionHeight) {
+            document.querySelectorAll('.nav__link').forEach(el => {
+              el.classList.remove('active-link');
+            });
+            sectionsClass.classList.add('active-link');
+          }
+        }
+      });
+    };
+    
+    // Apply scroll listener
+    window.addEventListener('scroll', fixActiveLink);
+    fixActiveLink();
+    
+    // Add CSS fallback animations if ScrollReveal fails
+    setTimeout(() => {
+      if (!animationsInitialized) {
+        document.body.classList.add('no-scrollreveal');
+        console.log('Using CSS fallback animations');
+      }
+    }, 3000);
+  });
+</script>
 </body>
 
 </html>
